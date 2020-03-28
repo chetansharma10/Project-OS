@@ -216,7 +216,7 @@ void printTurn()
     float ATAT;
 	for (int i = 0; i < NP; ++i)
 	{
-		printf("\nTAT P(%d)=%d",i+1,waitList[i]+processes[i][1s]);
+		printf("\nTAT P(%d)=%d",i+1,waitList[i]+processes[i][1]);
 		
 		sum=sum+waitList[i]+processes[i][1];
 
