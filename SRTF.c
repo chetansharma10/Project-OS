@@ -248,7 +248,7 @@ printTurn();
 
 
 
-void CallRR()
+void CallRR_FCFS()
 {
 
  int i, limit, total = 0, x, counter = 0,j; 
@@ -256,6 +256,9 @@ void CallRR()
 	  int wait_time = 0, turnaround_time = 0,pos,z,p[10],prio[10], a_time[10], b_time[10], temp[10],b; 
       
 	  float average_wait_time, average_turnaround_time;
+	  int sumOfTAT=0;
+	  int sumOFWT=0;
+	 
       
 	  printf("\nEnter Total Number of Processes:"); 
       
@@ -275,7 +278,7 @@ void CallRR()
             temp[i] = b_time[i];
       }
 	    
-      printf("\nProcess ID\t\tBurst Time\t Turnaround Time\t Waiting Time\t Priority\n");
+      printf("\nProcess ID\t\tBurst Time\tTurnaround Time\t WaitingTime\t    Priority\n");
       for(total = 0, i = 0; x != 0;) 
       { 
 
@@ -337,9 +340,15 @@ void CallRR()
             if(temp[i] == 0 && counter == 1) 
             { 
                   x--; 
-                  printf("\nProcess[%d]\t\t%d\t\t %d\t\t %d\t\t%d", p[i], b_time[i], total - a_time[i], total - a_time[i] - b_time[i],prio[i]);
-                  wait_time = wait_time + total - a_time[i] - b_time[i]; 
+                  printf("\nProcess[%d]\t\t%d\t\t%d\t\t\t%d\t\t%d", p[i], b_time[i], total - a_time[i], total - a_time[i] - b_time[i],prio[i]);
+                  wait_time = wait_time + total - a_time[i] - b_time[i];
+                 
+                 
+
                   turnaround_time = turnaround_time + total - a_time[i]; 
+                  sumOfTAT=total - a_time[i]+sumOfTAT;
+                  sumOFWT= total - a_time[i] - b_time[i]+sumOFWT;
+
                   counter = 0; 
             } 
             if(i == limit - 1) 
@@ -358,24 +367,15 @@ void CallRR()
             
 			}		
       } 
+
+
+      float avg_TAT;
+      float avg_WT;
+      avg_WT=sumOFWT/(float)limit;
+      avg_TAT=sumOfTAT/(float)limit;
+      printf("\nAverage Waiting Time:%1f",avg_WT);
+      printf("\nAverage Turn Arround Time:%1f",avg_TAT);
       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 int main()
@@ -385,70 +385,10 @@ printf("\nEnter Time Quantum:");
 scanf("%d",&time_quantum);
 if(time_quantum>1)
 {
-	CallRR();
+	CallRR_FCFS();
 }
 else{
     CallSRTF();
 }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
